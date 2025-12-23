@@ -1,0 +1,22 @@
+{
+  "name": "sql_injection",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "dev": "npx tsc && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "@types/pg": "^8.16.0",
+    "express": "^5.2.1",
+    "pg": "^8.16.3"
+  }
+}

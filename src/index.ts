@@ -26,14 +26,34 @@ app.post("/register", async (req, res) => {
         const password = req.body.password;
         // Vulnerable: uses string interpolation instead of parameterized queries
         const query = `INSERT INTO users (username, email, password) VALUES ('${username}', '${email}', '${password}')`;
+        // use this as safe for the query
+        //const query = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3);`;
+         //await client.query(query, [username, email, password]);
         console.log("Executing:", query);
-        const result = await client.query(query);
+        await client.query(query);
         res.send("User registered successfully");
     } catch (error) {
         console.log(error);
         res.status(500).send("Error registering user");
     }
 });
+app.get('/login', async (req, res) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+        // Vulnerable: uses string interpolation instead of parameterized queries
+        const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`;
+        //how to prevent it 
+        // const query = `SELECT * FROM users WHERE email = $1 AND password = $2`;
+        console.log("Executing:", query);
+        //await client.query(query, [email, password]);
+        const result = await client.query(query);
+        res.send(result.rows);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error logging in user");
+    }
+})
 
 app.listen(3000, () => {
     console.log("Server started on port 3000");
